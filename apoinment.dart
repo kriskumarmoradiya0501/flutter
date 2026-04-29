@@ -20,9 +20,7 @@ class AppointmentApp extends StatefulWidget {
 }
 
 class _AppointmentAppState extends State<AppointmentApp> {
-
   DateTime selectedDate = DateTime.now();
-
   List<String> slots = [
     "10 to 11",
     "11 to 12",
@@ -31,11 +29,8 @@ class _AppointmentAppState extends State<AppointmentApp> {
     "5 to 6",
     "6 to 7"
   ];
-
   String selectedSlot = "10 to 11";
-
   List<String> bookings = [];
-
   String message = "";
 
   void pickDate() async {
@@ -43,7 +38,7 @@ class _AppointmentAppState extends State<AppointmentApp> {
       context: context,
       initialDate: selectedDate,
       firstDate: DateTime.now(),
-      lastDate: DateTime.now(),
+      lastDate: DateTime(2100),
     );
 
     if (picked != null) {
@@ -82,26 +77,23 @@ class _AppointmentAppState extends State<AppointmentApp> {
         title: Text("Appointment App"),
         actions: [
           Padding(
-            padding: EdgeInsets.all(10),
-            child: CircleAvatar(
-              child: Text("${bookings.length}"),
+            padding: const EdgeInsets.only(right: 20, top: 10),
+            child: Badge(
+              label: Text("${bookings.length}"),
+              isLabelVisible: bookings.isNotEmpty,
+              child: Icon(Icons.calendar_today),
             ),
           )
         ],
       ),
-
       body: Padding(
         padding: EdgeInsets.all(10),
         child: Column(
           children: [
-
-            // Date Picker
             TextButton(
               onPressed: pickDate,
               child: Text("Date: ${selectedDate.toString().split(" ")[0]}"),
             ),
-
-            // Dropdown
             DropdownButton<String>(
               value: selectedSlot,
               items: slots.map((slot) {
@@ -116,8 +108,6 @@ class _AppointmentAppState extends State<AppointmentApp> {
                 });
               },
             ),
-
-            // Buttons
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -125,25 +115,21 @@ class _AppointmentAppState extends State<AppointmentApp> {
                 ElevatedButton(onPressed: reset, child: Text("Reset")),
               ],
             ),
-
             SizedBox(height: 10),
-
-            // ListView
             Expanded(
               child: ListView.builder(
                 itemCount: bookings.length,
                 itemBuilder: (context, index) {
                   return ListTile(
+                    leading: Icon(Icons.event_available),
                     title: Text(bookings[index]),
                   );
                 },
               ),
             ),
-
-            // Message
             Text(
               message,
-              style: TextStyle(color: Colors.red),
+              style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
             ),
           ],
         ),

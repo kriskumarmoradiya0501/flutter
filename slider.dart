@@ -53,7 +53,7 @@ class _MaxAppState extends State<MaxApp> {
             Slider(
               value: a,
               min: 1,
-              max: 5,
+              max: 100,
               divisions: 100,
               onChanged: (value) {
                 setState(() {

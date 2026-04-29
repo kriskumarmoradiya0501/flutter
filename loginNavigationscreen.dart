@@ -84,9 +84,9 @@ class _LoginPageState extends State<LoginPage> {
 
             // PIN Fields
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 pinBox(p1),
+                SizedBox(width: 20),
                 pinBox(p2),
                 pinBox(p3),
                 pinBox(p4),
